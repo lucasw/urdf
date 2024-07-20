@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.7)
 project(urdf)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 find_package(Boost REQUIRED thread)
 find_package(urdfdom REQUIRED)
 find_package(urdfdom_headers REQUIRED)
@@ -21,11 +24,6 @@ string(REGEX REPLACE "^[0-9]+\\.[0-9]+\\.([0-9]+).*" "\\1" URDFDOM_HEADERS_REVIS
 set(generated_compat_header "${CATKIN_DEVEL_PREFIX}/include/${PROJECT_NAME}/urdfdom_compatibility.h")
 include_directories("${CATKIN_DEVEL_PREFIX}/include")
 configure_file(urdfdom_compatibility.h.in "${generated_compat_header}" @ONLY)
-
-if(NOT DEFINED CMAKE_CXX_STANDARD OR "${CMAKE_CXX_STANDARD}" LESS 17)
-  set(CMAKE_CXX_STANDARD 17)
-endif()
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 catkin_package(
   LIBRARIES ${PROJECT_NAME}
